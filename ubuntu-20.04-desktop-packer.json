@@ -1,0 +1,41 @@
+{
+  "builders": [
+    {
+      "type": "vmware-iso",
+
+      "guest_os_type": "ubuntu-64",
+      "memory": 4096,
+      "name": "ubuntu-20.04-desktop",
+      "iso_urls": [
+        "iso/ubuntu-20.04.3-desktop-amd64.iso",
+        "https://releases.ubuntu.com/focal/ubuntu-20.04.3-desktop-amd64.iso"
+      ],
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "5fdebc435ded46ae99136ca875afc6f05bde217be7dd018e1841924f71db46b5",
+
+      "http_directory": "subiquity/http",
+      "output_directory": "output/desktop",
+
+      "boot_wait": "5s",
+      "boot_command": [
+        "<enter><enter><f6><esc><wait> ",
+        "autoinstall ds=nocloud-net;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+        "<enter><wait>"
+      ],
+      "shutdown_command": "shutdown -P now",
+
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "ssh_pty": true,
+      "ssh_timeout": "20m",
+      "ssh_handshake_attempts": "20"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["ls /"]
+    }
+  ]
+}
