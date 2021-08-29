@@ -1,41 +1,38 @@
 {
   "builders": [
     {
-      "type": "vmware-iso",
-
-      "guest_os_type": "ubuntu-64",
-      "memory": 4096,
-      "name": "ubuntu-20.04-desktop",
-      "iso_urls": [
-        "iso/ubuntu-20.04.3-desktop-amd64.iso",
-        "https://releases.ubuntu.com/focal/ubuntu-20.04.3-desktop-amd64.iso"
-      ],
-      "iso_checksum_type": "sha256",
-      "iso_checksum": "5fdebc435ded46ae99136ca875afc6f05bde217be7dd018e1841924f71db46b5",
-
-      "http_directory": "subiquity/http",
-      "output_directory": "output/desktop",
-
-      "boot_wait": "5s",
       "boot_command": [
         "<enter><enter><f6><esc><wait> ",
         "autoinstall ds=nocloud-net;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
         "<enter><wait>"
       ],
+      "boot_wait": "5s",
+      "guest_os_type": "ubuntu-64",
+      "http_directory": "http",
+      "iso_checksum": "sha256:5fdebc435ded46ae99136ca875afc6f05bde217be7dd018e1841924f71db46b5",
+      "iso_urls": [
+        "~/iso/ubuntu-20.04.3-desktop-amd64.iso",
+        "https://releases.ubuntu.com/focal/ubuntu-20.04.3-desktop-amd64.iso"
+      ],
+      "memory": 4096,
+      "name": "ubuntu-20.04-desktop",
+      "output_directory": "output/desktop",
       "shutdown_command": "shutdown -P now",
-
-      "ssh_username": "ubuntu",
+      "ssh_handshake_attempts": "20",
       "ssh_password": "ubuntu",
       "ssh_pty": true,
-      "ssh_timeout": "20m",
-      "ssh_handshake_attempts": "20"
+      "ssh_timeout": "5m",
+      "ssh_username": "ubuntu",
+      "type": "vmware-iso"
     }
   ],
-
   "provisioners": [
     {
-      "type": "shell",
-      "inline": ["ls /"]
+      "inline": [
+        "ls /"
+      ],
+      "type": "shell"
     }
   ]
 }
+

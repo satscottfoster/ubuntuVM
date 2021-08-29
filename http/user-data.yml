@@ -19,7 +19,8 @@ autoinstall:
     username: ubuntu
     password: $6$rounds=4096$8dkK1P/oE$2DGKKt0wLlTVJ7USY.0jN9du8FetmEr51yjPyeiR.zKE3DGFcitNL/nF1l62BLJNR87lQZixObuXYny.Mf17K1
   ssh:
-    install-server: yes
+    install-server: true
+    allow-pw: true
   user-data:
     disable_root: false
   late-commands:
